@@ -1,1 +1,0 @@
-cmd_/home/prathamesh/Documents/osnet/QueryIoctl/vfn-pfn-converter/modules.order := {   echo /home/prathamesh/Documents/osnet/QueryIoctl/vfn-pfn-converter/query_ioctl.ko; :; } | awk '!x[$$0]++' - > /home/prathamesh/Documents/osnet/QueryIoctl/vfn-pfn-converter/modules.order

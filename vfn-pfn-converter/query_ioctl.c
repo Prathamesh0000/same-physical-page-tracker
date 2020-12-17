@@ -41,24 +41,26 @@ long  virtualToPhysical(struct mm_struct * mm, unsigned long vaddr ) {
     if (!pgd_none(*pgd) || !pgd_bad(*pgd)) {
         p4d_t *p4d;
         p4d = p4d_offset( pgd , vaddr);
-        pud_t *pud;
-        pud = pud_offset( p4d , vaddr);
-        if (!pud_none(*pud) || !pud_bad(*pud)) {
-            pmd_t *pmd;
-            pmd = pmd_offset( pud,  vaddr);
-            if (!pmd_none(*pmd) || !pmd_bad(*pmd)) {
-                pte_t * pte_offset;
-                pte_offset = pte_offset_map( pmd,  vaddr);
-                if(!pte_none(*pte_offset) && pte_present( * pte_offset)) {
-                    unsigned long pfn = pte_pfn(*pte_offset);
-                    if (pfn && pfn_valid(pfn))
-                    {
-                        pfn_output = pfn;
-                    }
-                }
-            }
-        }
-    }               
+		if (!p4d_none(*p4d) || !p4d_bad(*p4d)) {
+			pud_t *pud;
+			pud = pud_offset( p4d , vaddr);
+			if (!pud_none(*pud) || !pud_bad(*pud)) {
+				pmd_t *pmd;
+				pmd = pmd_offset( pud,  vaddr);
+				if (!pmd_none(*pmd) || !pmd_bad(*pmd)) {
+					pte_t * pte_offset;
+					pte_offset = pte_offset_map( pmd,  vaddr);
+					if(!pte_none(*pte_offset) && pte_present( * pte_offset)) {
+						unsigned long pfn = pte_pfn(*pte_offset);
+						if (pfn && pfn_valid(pfn))
+						{
+							pfn_output = pfn;
+						}
+					}
+				}
+			}
+		}
+    }
     return pfn_output;
 }
 
@@ -105,14 +107,18 @@ static long my_ioctl(struct file *f, unsigned int cmd, unsigned long arg)
 
 					struct vm_area_struct * vma;
 
-					for (vma = pid_mm_struct -> mmap; vma; vma = vma -> vm_next) {
-						if( q.vfn == vma -> vm_start) {
-							q.pfn = virtualToPhysical(pid_mm_struct, vma -> vm_start);
-							printk("query ioctl: Variable get: virtual start long %ld, virtual start %lx ,virtual end %lx, pfn %lx\n", vma -> vm_start, vma -> vm_start, vma -> vm_end, q.pfn);
-							break;
-						}
+					// for (vma = pid_mm_struct -> mmap; vma; vma = vma -> vm_next) {
+					// 	if( q.vfn == vma -> vm_start) {
+					// 		q.pfn = virtualToPhysical(pid_mm_struct, vma -> vm_start);
+					// 		printk("query ioctl: Variable get: virtual start long %ld, virtual start %lx ,virtual end %lx, pfn %lx\n", vma -> vm_start, vma -> vm_start, vma -> vm_end, q.pfn);
+					// 		break;
+					// 	}
 
-					}
+					// }
+			
+					q.pfn = virtualToPhysical(pid_mm_struct, q.vfn);
+					printk("query ioctl: Variable set virtual long %ld, virtual add %lx  pfn %lx\n", q.vfn, q.pfn);
+
 				}
 			}
 
