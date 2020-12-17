@@ -95,6 +95,7 @@ static long my_ioctl(struct file *f, unsigned int cmd, unsigned long arg)
 			{
 				return -EACCES;
 			}
+			q.pfn = 0;
 			if (q.pid) {
 				struct pid * pid;
 				pid = find_get_pid(q.pid);
@@ -103,9 +104,6 @@ static long my_ioctl(struct file *f, unsigned int cmd, unsigned long arg)
 					pid_mm_struct = pid_struct -> mm;
 
 					struct vm_area_struct * vma;
-					unsigned long phyAddress;
-					int i = 0;
-
 
 					for (vma = pid_mm_struct -> mmap; vma; vma = vma -> vm_next) {
 						if( q.vfn == vma -> vm_start) {
@@ -116,8 +114,6 @@ static long my_ioctl(struct file *f, unsigned int cmd, unsigned long arg)
 
 					}
 				}
-			} else {
-				q.pfn = 0;
 			}
 
 			printk("ioctl test: pfn: %lx  pid: %d\n", q.pfn,  q.pid);

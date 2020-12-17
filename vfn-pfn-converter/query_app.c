@@ -47,7 +47,7 @@ void set_vars(int fd)
 	// q.vfn =  strtol (line,NULL,0);
 	// q.pfn = 0;
 	q.pid = 3896;
-	q.vfn = 140652534472704;
+	q.vfn = 140652526358528;
 
 	if (ioctl(fd, QUERY_SET_VARIABLES, &q) == -1)
 	{

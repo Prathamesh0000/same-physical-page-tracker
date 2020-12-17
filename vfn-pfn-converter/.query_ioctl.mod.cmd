@@ -1,0 +1,1 @@
+cmd_/home/prathamesh/Documents/osnet/QueryIoctl/vfn-pfn-converter/query_ioctl.mod := { echo  /home/prathamesh/Documents/osnet/QueryIoctl/vfn-pfn-converter/query_ioctl.o; echo; } > /home/prathamesh/Documents/osnet/QueryIoctl/vfn-pfn-converter/query_ioctl.mod
