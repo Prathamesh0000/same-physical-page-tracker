@@ -1,0 +1,3 @@
+[submodule "hashmap/abseil-cpp"]
+	path = hashmap/abseil-cpp
+	url = https://github.com/abseil/abseil-cpp

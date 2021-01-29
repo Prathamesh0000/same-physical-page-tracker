@@ -1,0 +1,1 @@
+cmd_/home/prathamesh/Documents/osnet/QueryIoctl/pid-pfn-fetcher/Module.symvers := sed 's/ko$$/o/' /home/prathamesh/Documents/osnet/QueryIoctl/pid-pfn-fetcher/modules.order | scripts/mod/modpost  -a   -o /home/prathamesh/Documents/osnet/QueryIoctl/pid-pfn-fetcher/Module.symvers -e -i Module.symvers   -T -
